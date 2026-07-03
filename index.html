@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circlo — Give Every Item a Second Life</title>
+<meta name="description" content="Circlo is a sustainability platform to donate, exchange, sell, repair, and discover reusable items. Reduce waste. Encourage reuse. Create a circular economy.">
+<meta property="og:title" content="Circlo — Give Every Item a Second Life">
+<meta property="og:description" content="Join the movement toward a cleaner planet by donating, exchanging, repairing and reusing everyday items.">
+<meta property="og:image" content="https://i.postimg.cc/bwBZSYTQ/e3dfc686-f11b-411a-bd01-a31ca73e92f5-removebg-preview.png">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="https://i.postimg.cc/bwBZSYTQ/e3dfc686-f11b-411a-bd01-a31ca73e92f5-removebg-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     LOADING SCREEN
+============================================================ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <img src="https://i.postimg.cc/bwBZSYTQ/e3dfc686-f11b-411a-bd01-a31ca73e92f5-removebg-preview.png" alt="" class="loader-logo">
+  <div class="loader-bar"><span></span></div>
+</div>
+
+<div class="bg-texture" aria-hidden="true"></div>
+
+<!-- ============================================================
+     TOAST CONTAINER
+============================================================ -->
+<div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<header class="navbar" id="navbar">
+  <div class="navbar-inner container">
+    <a href="#home" class="nav-logo" data-nav>
+      <img src="https://i.postimg.cc/bwBZSYTQ/e3dfc686-f11b-411a-bd01-a31ca73e92f5-removebg-preview.png" alt="Circlo logo" width="30" height="30">
+      <span>Circlo</span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" data-nav data-page="home">Home</a>
+      <a href="#marketplace" data-nav data-page="marketplace">Marketplace</a>
+      <a href="#donate" data-nav data-page="donate">Donate</a>
+      <a href="#repair" data-nav data-page="repair">Repair</a>
+      <a href="#challenges" data-nav data-page="challenges">Challenges</a>
+      <a href="#leaderboard" data-nav data-page="leaderboard">Leaderboard</a>
+      <a href="#impact" data-nav data-page="home">Impact</a>
+      <a href="#about" data-nav data-page="about">About</a>
+      <a href="#contact" data-nav data-page="contact">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none"><path d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </button>
+
+      <button class="icon-btn" id="wishlistBtn" aria-label="Wishlist" title="Wishlist">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7.5-4.6-10-9.3C.4 7 2.3 3.5 6 3c2-.3 3.7.7 6 3 2.3-2.3 4-3.3 6-3 3.7.5 5.6 4 4 7.7C19.5 15.4 12 20 12 20z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <span class="badge-count" id="wishlistCount">0</span>
+      </button>
+
+      <div class="user-slot" id="userSlot">
+        <button class="btn btn-ghost" id="loginBtn">Login</button>
+        <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" data-nav data-page="home">Home</a>
+    <a href="#marketplace" data-nav data-page="marketplace">Marketplace</a>
+    <a href="#donate" data-nav data-page="donate">Donate</a>
+    <a href="#repair" data-nav data-page="repair">Repair</a>
+    <a href="#challenges" data-nav data-page="challenges">Challenges</a>
+    <a href="#leaderboard" data-nav data-page="leaderboard">Leaderboard</a>
+    <a href="#about" data-nav data-page="about">About</a>
+    <a href="#contact" data-nav data-page="contact">Contact</a>
+    <div class="mobile-menu-actions">
+      <button class="btn btn-outline" id="loginBtnMobile">Login</button>
+      <button class="btn btn-primary" id="signupBtnMobile">Sign Up</button>
+    </div>
+  </div>
+</header>
+
+<main id="mainContent">
+
+<!-- ================================================================
+     PAGE: HOME
+================================================================ -->
+<section class="page active" id="page-home">
+
+  <!-- HERO -->
+  <div class="hero" id="home">
+    <div class="container hero-inner">
+      <div class="hero-copy reveal">
+        <span class="eyebrow">🌱 Now live for campuses everywhere</span>
+        <h1>Give Every Item a <span class="text-accent">Second Life.</span></h1>
+        <p class="hero-sub">Join the movement toward a cleaner planet by donating, exchanging, repairing and reusing everyday items.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg ripple" data-nav data-page="marketplace" data-scroll="#marketplace-top">Get Started</button>
+          <button class="btn btn-outline btn-lg ripple" data-nav data-page="marketplace">Explore Marketplace</button>
+          <button class="btn btn-text btn-lg ripple" id="watchDemoBtn">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M10 8.5l6 3.5-6 3.5v-7z" fill="currentColor"/></svg>
+            Watch Demo
+          </button>
+        </div>
+        <div class="hero-trust">
+          <div class="avatars"><span></span><span></span><span></span><span></span></div>
+          <p>Joined by 3,200+ students building circular communities</p>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" id="heroVisual">
+        <div class="hero-orb-bg" aria-hidden="true"></div>
+        <div class="floating-icon icon-leaf-1" aria-hidden="true">🍃</div>
+        <div class="floating-icon icon-leaf-2" aria-hidden="true">🍃</div>
+        <div class="floating-icon icon-recycle-1" aria-hidden="true">♻️</div>
+        <div class="floating-icon icon-recycle-2" aria-hidden="true">♻️</div>
+        <div class="floating-icon icon-leaf-3" aria-hidden="true">🌿</div>
+
+        <div class="hero-logo-circle">
+          <img src="https://i.postimg.cc/bwBZSYTQ/e3dfc686-f11b-411a-bd01-a31ca73e92f5-removebg-preview.png" alt="Circlo" width="130" height="130">
+        </div>
+
+        <div class="hero-card card-glass card-float-1">
+          <span class="dot"></span>
+          <p><strong>Item donated</strong><br>Textbook · Chemistry 101</p>
+        </div>
+        <div class="hero-card card-glass card-float-2">
+          <span class="dot dot-blue"></span>
+          <p><strong>+40 Eco Points</strong><br>Earned this week</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVE IMPACT -->
+  <div class="impact" id="impact">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Live impact</span>
+        <h2>Real change, tracked in real time.</h2>
+        <p>Every donation, swap, and repair adds up. Here's what our community has achieved together.</p>
+      </div>
+      <div class="impact-grid">
+        <div class="impact-card reveal"><div class="impact-icon">♻️</div><div class="impact-number" data-target="12584">0</div><p>Items Reused</p></div>
+        <div class="impact-card reveal"><div class="impact-icon">🌳</div><div class="impact-number" data-target="2130">0</div><p>Trees Saved</p></div>
+        <div class="impact-card reveal"><div class="impact-icon">💧</div><div class="impact-number" data-target="820000">0</div><p>Litres Water Saved</p></div>
+        <div class="impact-card reveal"><div class="impact-icon">🌍</div><div class="impact-number" data-target="5.4" data-decimal="1" data-suffix=" T">0</div><p>CO₂ Prevented</p></div>
+        <div class="impact-card reveal"><div class="impact-icon">👥</div><div class="impact-number" data-target="3200">0</div><p>Active Users</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how-it-works">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Simple by design</span>
+        <h2>How Circlo works.</h2>
+        <p>A few simple steps between a forgotten drawer and someone's next favorite thing.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <div class="step-icon"><svg viewBox="0 0 48 48" fill="none"><path d="M24 32V8M24 8l-9 9M24 8l9 9" stroke="#8BC34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 30v6a3 3 0 003 3h24a3 3 0 003-3v-6" stroke="#111111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Upload Item</h3><p>Snap a photo, add a short note, and list what you no longer need in under a minute.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-icon"><svg viewBox="0 0 48 48" fill="none"><circle cx="16" cy="16" r="6" stroke="#8BC34A" stroke-width="3"/><circle cx="32" cy="32" r="6" stroke="#111111" stroke-width="3"/><path d="M20 19l8 10M28 19l-8 10" stroke="#8BC34A" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <h3>Share or Swap</h3><p>Neighbors and classmates browse, request, or trade items nearby.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-icon"><svg viewBox="0 0 48 48" fill="none"><path d="M24 6l4 8 9 1-6.5 6.5L32 30l-8-4-8 4 1.5-8.5L10.5 15l9-1z" stroke="#8BC34A" stroke-width="3" stroke-linejoin="round"/><path d="M12 40h24" stroke="#111111" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <h3>Repair When Needed</h3><p>Browse our repair hub to fix instead of replace — with cost and time estimates.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-icon"><svg viewBox="0 0 48 48" fill="none"><path d="M8 40l8-14 8 8 8-16 8 10" stroke="#8BC34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="40" cy="10" r="4" stroke="#111111" stroke-width="3"/></svg></div>
+          <h3>Track Your Impact</h3><p>Watch your dashboard grow — CO₂ saved, water saved, and Eco Points earned.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="categories">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Browse by category</span>
+        <h2>Find it. Free it. Reuse it.</h2>
+      </div>
+      <div class="categories-grid" id="categoryShortcuts">
+        <button class="category-card reveal" data-cat="Books"><span class="category-emoji">📚</span><h3>Books</h3></button>
+        <button class="category-card reveal" data-cat="Clothing"><span class="category-emoji">👕</span><h3>Clothing</h3></button>
+        <button class="category-card reveal" data-cat="Electronics"><span class="category-emoji">💻</span><h3>Electronics</h3></button>
+        <button class="category-card reveal" data-cat="School Supplies"><span class="category-emoji">🎒</span><h3>School Supplies</h3></button>
+        <button class="category-card reveal" data-cat="Furniture"><span class="category-emoji">🪑</span><h3>Furniture</h3></button>
+        <button class="category-card reveal" data-cat="Sports"><span class="category-emoji">⚽</span><h3>Sports</h3></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY CHOOSE CIRCLO -->
+  <div class="why">
+    <div class="container why-inner">
+      <div class="why-visual reveal">
+        <svg viewBox="0 0 400 400" fill="none"><circle cx="200" cy="200" r="160" fill="#8BC34A" fill-opacity="0.08"/><circle cx="200" cy="200" r="120" fill="#8BC34A" fill-opacity="0.10"/><path d="M200 90c60 0 110 50 110 110s-50 110-110 110" stroke="#8BC34A" stroke-width="6" stroke-linecap="round"/><path d="M200 310c-60 0-110-50-110-110S140 90 200 90" stroke="#111111" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 16"/><circle cx="200" cy="200" r="46" fill="#8BC34A"/><path d="M188 200l8 8 18-18" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="why-copy reveal">
+        <span class="eyebrow">Why Circlo</span>
+        <h2>Small swaps. Real impact.</h2>
+        <p class="why-lead">Every item you pass on keeps something new from being made — and keeps your community a little closer.</p>
+        <ul class="benefits-list">
+          <li><span class="benefit-icon">♻️</span><div><h4>Reduce waste</h4><p>Keep usable items out of landfills and back into circulation.</p></div></li>
+          <li><span class="benefit-icon">💸</span><div><h4>Save money</h4><p>Get what you need for free or trade instead of buying new.</p></div></li>
+          <li><span class="benefit-icon">🤝</span><div><h4>Build community</h4><p>Meet neighbors and classmates through everyday generosity.</p></div></li>
+          <li><span class="benefit-icon">🌎</span><div><h4>Protect the planet</h4><p>Lower emissions and conserve resources with every reuse.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEKLY CHALLENGE TEASER -->
+  <div class="challenge">
+    <div class="container">
+      <div class="challenge-card reveal">
+        <div class="challenge-content">
+          <span class="eyebrow eyebrow-light">Weekly Eco Challenge</span>
+          <h2>Donate one reusable item this week.</h2>
+          <p>Small action, real reward. Complete this week's challenge and grow your impact score.</p>
+          <div class="challenge-reward"><span class="reward-badge">🏆 Earn 100 Eco Points</span></div>
+          <button class="btn btn-light btn-lg ripple" data-nav data-page="challenges">Join Challenge</button>
+        </div>
+        <div class="challenge-visual" aria-hidden="true">
+          <div class="challenge-orb"></div>
+          <span class="challenge-emoji e1">🍃</span><span class="challenge-emoji e2">♻️</span><span class="challenge-emoji e3">🌿</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="testimonials">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Community voices</span>
+        <h2>Loved by students and neighbors alike.</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card card-glass reveal">
+          <div class="stars">★★★★★</div>
+          <p>"I furnished half my dorm room through Circlo. It felt good knowing nothing went to waste."</p>
+          <div class="testimonial-author"><span class="avatar-circle">A</span><div><strong>Amara O.</strong><span>Sophomore, Design</span></div></div>
+        </div>
+        <div class="testimonial-card card-glass reveal">
+          <div class="stars">★★★★★</div>
+          <p>"The impact tracker is what hooked me. Watching my CO₂ savings climb is weirdly addictive."</p>
+          <div class="testimonial-author"><span class="avatar-circle">J</span><div><strong>Jonah T.</strong><span>Grad Student, Engineering</span></div></div>
+        </div>
+        <div class="testimonial-card card-glass reveal">
+          <div class="stars">★★★★★</div>
+          <p>"Our whole apartment building uses Circlo now. It's turned into a real little community."</p>
+          <div class="testimonial-author"><span class="avatar-circle">P</span><div><strong>Priya S.</strong><span>Resident, Maple Court</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     PAGE: MARKETPLACE
+================================================================ -->
+<section class="page" id="page-marketplace">
+  <div class="page-header container" id="marketplace-top">
+    <span class="eyebrow">Marketplace</span>
+    <h1>Find it. Free it. Reuse it.</h1>
+    <p>Browse everyday items given a second chance by people near you.</p>
+  </div>
+
+  <div class="container">
+    <div class="market-toolbar reveal">
+      <div class="search-bar">
+        <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <input type="text" id="marketSearch" placeholder="Search items — e.g. desk lamp, biology textbook...">
+      </div>
+      <select id="marketSort" class="select-input">
+        <option value="newest">Newest</option>
+        <option value="nearest">Nearest</option>
+        <option value="popular">Most Popular</option>
+      </select>
+    </div>
+
+    <div class="chip-row reveal" id="categoryChips">
+      <button class="chip active" data-cat="All">All</button>
+      <button class="chip" data-cat="Books">📚 Books</button>
+      <button class="chip" data-cat="Clothing">👕 Clothing</button>
+      <button class="chip" data-cat="Electronics">💻 Electronics</button>
+      <button class="chip" data-cat="School Supplies">🎒 School Supplies</button>
+      <button class="chip" data-cat="Furniture">🪑 Furniture</button>
+      <button class="chip" data-cat="Sports">⚽ Sports</button>
+    </div>
+
+    <div class="market-grid" id="marketGrid"></div>
+    <p class="empty-state" id="marketEmpty" hidden>No items match your search. Try a different filter.</p>
+  </div>
+</section>
+
+<!-- ================================================================
+     PAGE: DONATE
+================================================================ -->
+<section class="page" id="page-donate">
+  <div class="page-header container">
+    <span class="eyebrow">Donate an item</span>
+    <h1>List something for a second life.</h1>
+    <p>Fill in a few details — it takes less than a minute.</p>
+  </div>
+
+  <div class="container donate-layout">
+    <form class="donate-form card-panel reveal" id="donateForm" novalidate>
+      <div class="form-group">
+        <label for="donateImage">Photo</label>
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="donateImage" accept="image/*" hidden>
+          <div class="upload-placeholder" id="uploadPlaceholder">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none"><path d="M12 16V4M12 4l-4.5 4.5M12 4l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <p>Click to upload an image</p>
+            <span>PNG or JPG, up to 5MB</span>
+          </div>
+          <img id="uploadPreview" alt="Preview" hidden>
+        </div>
+        <span class="field-error" id="err-image"></span>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="donateTitle">Title</label>
+          <input type="text" id="donateTitle" placeholder="e.g. Study desk lamp">
+          <span class="field-error" id="err-title"></span>
+        </div>
+        <div class="form-group">
+          <label for="donateCategory">Category</label>
+          <select id="donateCategory">
+            <option value="">Select category</option>
+            <option>Books</option><option>Clothing</option><option>Electronics</option>
+            <option>School Supplies</option><option>Furniture</option><option>Sports</option>
+          </select>
+          <span class="field-error" id="err-category"></span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="donateDescription">Description</label>
+        <textarea id="donateDescription" rows="4" placeholder="Describe the item's condition, age, and any details a new owner should know."></textarea>
+        <span class="field-error" id="err-description"></span>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="donateCondition">Condition</label>
+          <select id="donateCondition">
+            <option value="">Select condition</option>
+            <option>Like New</option><option>Good</option><option>Fair</option><option>Needs Repair</option>
+          </select>
+          <span class="field-error" id="err-condition"></span>
+        </div>
+        <div class="form-group">
+          <label for="donateLocation">Location</label>
+          <input type="text" id="donateLocation" placeholder="e.g. North Campus, Building 3">
+          <span class="field-error" id="err-location"></span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg ripple" id="donateSubmitBtn">
+        <span class="btn-label">List Item</span>
+        <span class="btn-spinner" hidden></span>
+      </button>
+    </form>
+
+    <aside class="donate-tips reveal">
+      <h4>Tips for a great listing</h4>
+      <ul>
+        <li>Use natural light for your photo</li>
+        <li>Be honest about condition</li>
+        <li>Mention if pickup or drop-off works better</li>
+        <li>Respond quickly to requests to earn a Reliable Donor badge</li>
+      </ul>
+      <div class="tips-points-card">
+        <span>🏅</span>
+        <div><strong>+25 Eco Points</strong><p>Awarded instantly when your item is listed</p></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ================================================================
+     PAGE: REPAIR HUB
+================================================================ -->
+<section class="page" id="page-repair">
+  <div class="page-header container">
+    <span class="eyebrow">Repair Hub</span>
+    <h1>Fix it before you replace it.</h1>
+    <p>Step-by-step guides to keep your things going a little longer.</p>
+  </div>
+
+  <div class="container">
+    <div class="search-bar reveal repair-search">
+      <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <input type="text" id="repairSearch" placeholder="Search repair guides — e.g. laptop, bicycle...">
+    </div>
+    <div class="repair-grid" id="repairGrid"></div>
+  </div>
+</section>
+
+<!-- ================================================================
+     PAGE: CHALLENGES
+================================================================ -->
+<section class="page" id="page-challenges">
+  <div class="page-header container">
+    <span class="eyebrow">Eco Challenges</span>
+    <h1>Turn small actions into real momentum.</h1>
+    <p>Complete missions, earn XP, and level up your impact.</p>
+  </div>
+
+  <div class="container">
+    <div class="level-card reveal">
+      <div class="level-badge" id="levelBadge">1</div>
+      <div class="level-info">
+        <div class="level-top"><strong id="levelLabel">Level 1 · Sprout</strong><span id="xpLabel">0 / 200 XP</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="xpFill"></div></div>
+      </div>
+    </div>
+
+    <div class="challenges-grid" id="challengesGrid"></div>
+  </div>
+</section>
+
+<!-- ================================================================
+     PAGE: LEADERBOARD
+================================================================ -->
+<section class="page" id="page-leaderboard">
+  <div class="page-header container">
+    <span class="eyebrow">Leaderboard</span>
+    <h1>Top contributors this month.</h1>
+    <p>Every point earned moves the whole community forward.</p>
+  </div>
+
+  <div class="container">
+    <div class="podium reveal" id="podium"></div>
+    <div class="leaderboard-list card-panel" id="leaderboardList"></div>
+  </div>
+</section>
+
+<!-- ================================================================
+     PAGE: PROFILE
+================================================================ -->
+<section class="page" id="page-profile">
+  <div class="page-header container">
+    <span class="eyebrow">Your Profile</span>
+    <h1>Your circular impact, at a glance.</h1>
+  </div>
+
+  <div class="container profile-layout">
+    <div class="profile-card card-panel reveal">
+      <div class="profile-avatar" id="profileAvatar">C</div>
+      <h3 id="profileName">Guest</h3>
+      <p class="profile-sub" id="profileEmail">Not signed in</p>
+      <div class="profile-level">
+        <span id="profileLevelLabel">Level 1 · Sprout</span>
+        <div class="progress-bar sm"><div class="progress-fill" id="profileXpFill"></div></div>
+      </div>
+      <button class="btn btn-outline" id="editProfileBtn">Edit Profile</button>
+
+      <div class="darkmode-row">
+        <span>Dark Mode</span>
+        <label class="switch">
+          <input type="checkbox" id="darkModeSwitch">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="profile-stats-wrap reveal">
+      <div class="profile-stats-grid">
+        <div class="stat-card"><span id="statPoints">0</span><p>Eco Points</p></div>
+        <div class="stat-card"><span id="statShared">0</span><p>Items Shared</p></div>
+        <div class="stat-card"><span id="statReceived">0</span><p>Items Received</p></div>
+        <div class="stat-card"><span id="statCO2">0 kg</span><p>CO₂ Saved</p></div>
+        <div class="stat-card"><span id="statWater">0 L</span><p>Water Saved</p></div>
+        <div class="stat-card"><span id="statRank">—</span><p>Leaderboard Rank</p></div>
+      </div>
+
+      <h4 class="achievements-title">Achievements</h4>
+      <div class="achievements-grid" id="achievementsGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     PAGE: ABOUT
+================================================================ -->
+<section class="page" id="page-about">
+  <div class="page-header container">
+    <span class="eyebrow">About Circlo</span>
+    <h1>Closing the loop, together.</h1>
+  </div>
+
+  <div class="container about-layout">
+    <div class="about-block reveal">
+      <h3>Our Mission</h3>
+      <p>To make reuse the easiest choice for students and communities — so fewer usable items end up in landfills, and more end up in someone's hands who needs them.</p>
+    </div>
+    <div class="about-block reveal">
+      <h3>Our Vision</h3>
+      <p>A world where every campus and neighborhood runs on a circular economy by default: share first, repair second, buy new last.</p>
+    </div>
+    <div class="about-block wide reveal">
+      <h3>What is a Circular Economy?</h3>
+      <p>Instead of the traditional take-make-dispose model, a circular economy keeps materials and products in use for as long as possible — through sharing, repairing, and reusing — before any resource is wasted.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <h3 class="timeline-title reveal">Our Journey</h3>
+    <div class="timeline reveal">
+      <div class="timeline-item"><span class="timeline-dot"></span><div><strong>2024</strong><p>Circlo starts as a campus pilot with 40 students.</p></div></div>
+      <div class="timeline-item"><span class="timeline-dot"></span><div><strong>2025</strong><p>Marketplace, Repair Hub, and Eco Challenges launch.</p></div></div>
+      <div class="timeline-item"><span class="timeline-dot"></span><div><strong>2026</strong><p>3,200+ active users and 12,000+ items reused.</p></div></div>
+      <div class="timeline-item"><span class="timeline-dot"></span><div><strong>Next</strong><p>Expanding to schools and neighborhoods nationwide.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     PAGE: CONTACT
+================================================================ -->
+<section class="page" id="page-contact">
+  <div class="page-header container">
+    <span class="eyebrow">Contact</span>
+    <h1>We'd love to hear from you.</h1>
+  </div>
+
+  <div class="container contact-layout">
+    <form class="contact-form card-panel reveal" id="contactForm" novalidate>
+      <div class="form-group">
+        <label for="contactName">Name</label>
+        <input type="text" id="contactName" placeholder="Your name">
+        <span class="field-error" id="err-cname"></span>
+      </div>
+      <div class="form-group">
+        <label for="contactEmail">Email</label>
+        <input type="email" id="contactEmail" placeholder="you@example.com">
+        <span class="field-error" id="err-cemail"></span>
+      </div>
+      <div class="form-group">
+        <label for="contactMessage">Message</label>
+        <textarea id="contactMessage" rows="5" placeholder="How can we help?"></textarea>
+        <span class="field-error" id="err-cmessage"></span>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg ripple">Send Message</button>
+    </form>
+
+    <div class="contact-side reveal">
+      <div class="map-placeholder">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><path d="M12 21s-7-6.2-7-11a7 7 0 1114 0c0 4.8-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.6" stroke="currentColor" stroke-width="1.6"/></svg>
+        <p>Circlo HQ — 128 Greenway Ave, University District</p>
+      </div>
+
+      <div class="faq" id="faqList">
+        <h4>Frequently Asked Questions</h4>
+        <div class="faq-item">
+          <button class="faq-question">Is Circlo free to use? <span>+</span></button>
+          <div class="faq-answer"><p>Yes — creating an account, listing items, and browsing the marketplace are completely free.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">How do Eco Points work? <span>+</span></button>
+          <div class="faq-answer"><p>You earn points for donating, completing challenges, and repairing items. Points unlock achievements and leaderboard rank.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Can I sell items instead of donating? <span>+</span></button>
+          <div class="faq-answer"><p>Yes, the marketplace supports free donations, swaps, and low-cost resale — you choose when listing.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Is my data stored anywhere online?</button>
+          <div class="faq-answer"><p>This demo runs entirely in your browser using local storage — nothing is sent to a server.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================================================================
+     FOOTER
+================================================================ -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="#home" class="nav-logo" data-nav>
+        <img src="https://i.postimg.cc/bwBZSYTQ/e3dfc686-f11b-411a-bd01-a31ca73e92f5-removebg-preview.png" alt="Circlo logo" width="28" height="28">
+        <span>Circlo</span>
+      </a>
+      <p>Closing the loop for a greener tomorrow.</p>
+
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" id="newsletterEmail" placeholder="Your email" required>
+        <button type="submit" class="btn btn-primary">Join</button>
+      </form>
+    </div>
+
+    <div class="footer-links">
+      <div class="footer-col">
+        <h5>Platform</h5>
+        <a href="#marketplace" data-nav data-page="marketplace">Marketplace</a>
+        <a href="#donate" data-nav data-page="donate">Donate</a>
+        <a href="#repair" data-nav data-page="repair">Repair Hub</a>
+        <a href="#challenges" data-nav data-page="challenges">Challenges</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="#about" data-nav data-page="about">About</a>
+        <a href="#leaderboard" data-nav data-page="leaderboard">Leaderboard</a>
+        <a href="#contact" data-nav data-page="contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+
+    <div class="footer-social">
+      <h5>Follow along</h5>
+      <div class="social-icons">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4l16 16M20 4L4 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.8"/><path d="M8 10v6M8 7.5v.01M12 16v-3.5c0-1.5 1-2.5 2.3-2.5S16.5 11 16.5 12.5V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p>© 2026 Circlo. All rights reserved.</p>
+      <p class="footer-tagline">Closing the Loop for a Greener Tomorrow.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ================================================================
+     BACK TO TOP
+================================================================ -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M12 19V5M12 5l-6 6M12 5l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<!-- ================================================================
+     COOKIE BANNER
+================================================================ -->
+<div class="cookie-banner" id="cookieBanner" hidden>
+  <p>Circlo uses local storage to remember your preferences and demo data on this device. No data leaves your browser.</p>
+  <button class="btn btn-primary" id="cookieAccept">Got it</button>
+</div>
+
+<!-- ================================================================
+     MODAL: LOGIN / SIGNUP
+================================================================ -->
+<div class="modal-overlay" id="authModal" hidden>
+  <div class="modal auth-modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <button class="modal-close" data-close-modal="authModal" aria-label="Close">✕</button>
+    <img src="https://i.postimg.cc/bwBZSYTQ/e3dfc686-f11b-411a-bd01-a31ca73e92f5-removebg-preview.png" alt="Circlo" class="modal-logo">
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login">Login</button>
+      <button class="auth-tab" data-tab="signup">Sign Up</button>
+    </div>
+
+    <form class="auth-form" id="loginForm">
+      <h2 id="authTitle">Welcome back</h2>
+      <div class="form-group">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com">
+        <span class="field-error" id="err-loginEmail"></span>
+      </div>
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="••••••••">
+        <span class="field-error" id="err-loginPassword"></span>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg ripple full-width">Login</button>
+      <p class="auth-hint">No account yet? <button type="button" class="link-btn" data-tab="signup">Sign up</button></p>
+    </form>
+
+    <form class="auth-form" id="signupForm" hidden>
+      <h2>Create your account</h2>
+      <div class="form-group">
+        <label for="signupName">Full name</label>
+        <input type="text" id="signupName" placeholder="Jane Doe">
+        <span class="field-error" id="err-signupName"></span>
+      </div>
+      <div class="form-group">
+        <label for="signupEmail">Email</label>
+        <input type="email" id="signupEmail" placeholder="you@example.com">
+        <span class="field-error" id="err-signupEmail"></span>
+      </div>
+      <div class="form-group">
+        <label for="signupPassword">Password</label>
+        <input type="password" id="signupPassword" placeholder="At least 6 characters">
+        <span class="field-error" id="err-signupPassword"></span>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg ripple full-width">Create Account</button>
+      <p class="auth-hint">Already have an account? <button type="button" class="link-btn" data-tab="login">Login</button></p>
+    </form>
+  </div>
+</div>
+
+<!-- ================================================================
+     MODAL: EDIT PROFILE
+================================================================ -->
+<div class="modal-overlay" id="editProfileModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="editProfileTitle">
+    <button class="modal-close" data-close-modal="editProfileModal" aria-label="Close">✕</button>
+    <h2 id="editProfileTitle">Edit Profile</h2>
+    <form id="editProfileForm">
+      <div class="form-group">
+        <label for="editName">Display name</label>
+        <input type="text" id="editName">
+      </div>
+      <div class="form-group">
+        <label for="editEmail">Email</label>
+        <input type="email" id="editEmail">
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg ripple full-width">Save Changes</button>
+    </form>
+  </div>
+</div>
+
+<!-- ================================================================
+     MODAL: ITEM DETAIL
+================================================================ -->
+<div class="modal-overlay" id="itemModal" hidden>
+  <div class="modal item-modal" role="dialog" aria-modal="true" aria-labelledby="itemModalTitle">
+    <button class="modal-close" data-close-modal="itemModal" aria-label="Close">✕</button>
+    <div id="itemModalBody"></div>
+  </div>
+</div>
+
+<!-- ================================================================
+     MODAL: REPAIR GUIDE DETAIL
+================================================================ -->
+<div class="modal-overlay" id="repairModal" hidden>
+  <div class="modal item-modal" role="dialog" aria-modal="true" aria-labelledby="repairModalTitle">
+    <button class="modal-close" data-close-modal="repairModal" aria-label="Close">✕</button>
+    <div id="repairModalBody"></div>
+  </div>
+</div>
+
+<!-- ================================================================
+     MODAL: DEMO VIDEO
+================================================================ -->
+<div class="modal-overlay" id="demoModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="demoModalTitle">
+    <button class="modal-close" data-close-modal="demoModal" aria-label="Close">✕</button>
+    <h2 id="demoModalTitle">Circlo in 60 seconds</h2>
+    <div class="demo-placeholder">
+      <svg viewBox="0 0 24 24" width="46" height="46" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.4"/><path d="M10 8.5l6 3.5-6 3.5v-7z" fill="currentColor"/></svg>
+      <p>Demo video coming soon — in the meantime, explore the live marketplace and challenges yourself.</p>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
